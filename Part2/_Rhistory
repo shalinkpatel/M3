@@ -1,0 +1,512 @@
+sum(complete.cases(Pred1DataFin) && complete.cases(Pred1DataBeg))
+sum(complete.cases(Pred1DataFin) & complete.cases(Pred1DataBeg))
+Pred1DataBeg <- Pred1DataBeg[complete.cases(Pred1DataFin) & complete.cases(Pred1DataBeg), ]
+Pred1DataFin <- Pred1DataFin[complete.cases(Pred1DataFin) & complete.cases(Pred1DataBeg), ]
+load("FinalData/data.RData")
+x <- complete.cases(Pred1DataFin) & complete.cases(Pred1DataBeg)
+Pred1DataBeg <- Pred1DataBeg[x, ]
+Pred1DataFin <- Pred1DataFin[x, ]
+set.seed(100)
+train <- sample(nrow(Pred1DataFin), 0.7*nrow(Pred1DataFin), replace = FALSE)
+TrainSetBeg <- Pred1DataBeg[train,]
+TrainSetFin <- Pred1DataFin[train,]
+ValidSetBeg <- Pred1DataBeg[-train,]
+ValidSetFin <- Pred1DataFin[-train,]
+IncomeModel <- randomForest(TrainSetBeg, y = TrainSetFin$Income, xtest = ValidSetBeg, ytest = ValidSetFin$Income, importance = TRUE)
+View(TrainSetBeg)
+TrainSetBeg <- Pred1DataBeg[train,-c("AID", "Birth Date")]
+TrainSetBeg <- Pred1DataBeg[train,-AID]
+TrainSetBeg <- Pred1DataBeg[train,-ID]
+Pred1DataBeg <- Pred1DataBeg[-"AID"]
+Pred1DataBeg <- Pred1DataBeg[-AID]
+Pred1DataBeg <- Pred1DataBeg[-ID]
+Pred1DataBeg <- Pred1DataBeg[-1]
+View(Pred1DataBeg)
+setwd("/Users/shalinpatel/Documents/Drive\ Sync/BCA/12th\ Grade/M3/Part2/")
+load("FinalData/data.RData")
+x <- complete.cases(Pred1DataFin) & complete.cases(Pred1DataBeg)
+Pred1DataBeg <- Pred1DataBeg[x, ]
+Pred1DataFin <- Pred1DataFin[x, ]
+Pred1DataBeg <- Pred1DataBeg[c(-1, -8)]
+View(Pred1DataFin)
+Pred1DataFin <- Pred1DataBeg[c(-1, -4)]
+load("FinalData/data.RData")
+x <- complete.cases(Pred1DataFin) & complete.cases(Pred1DataBeg)
+Pred1DataBeg <- Pred1DataBeg[x, ]
+Pred1DataFin <- Pred1DataFin[x, ]
+Pred1DataBeg <- Pred1DataBeg[c(-1, -8)]
+Pred1DataFin <- Pred1DataBeg[c(-1, -4)]
+load("FinalData/data.RData")
+x <- complete.cases(Pred1DataFin) & complete.cases(Pred1DataBeg)
+Pred1DataBeg <- Pred1DataBeg[x, ]
+Pred1DataFin <- Pred1DataFin[x, ]
+Pred1DataBeg <- Pred1DataBeg[c(-1, -8)]
+Pred1DataFin <- Pred1DataFin[c(-1, -4)]
+set.seed(100)
+train <- sample(nrow(Pred1DataFin), 0.7*nrow(Pred1DataFin), replace = FALSE)
+TrainSetBeg <- Pred1DataBeg[train,]
+TrainSetFin <- Pred1DataFin[train,]
+ValidSetBeg <- Pred1DataBeg[-train,]
+ValidSetFin <- Pred1DataFin[-train,]
+IncomeModel <- randomForest(TrainSetBeg, y = TrainSetFin$Income, xtest = ValidSetBeg, ytest = ValidSetFin$Income, importance = TRUE)
+IncomeModel
+importance(IncomeModel)
+varImpPlot(IncomeModel)
+IncomeModel <- randomForest(TrainSetBeg, y = TrainSetFin$Income, importance = TRUE)
+IncomeModel
+?predict
+IncomeModel <- randomForest(TrainSetBeg, y = TrainSetFin$Income, importance = TRUE, ntree = 500, mtry = 6)
+IncomeModel
+IncomeModel <- randomForest(TrainSetBeg, y = TrainSetFin$Income, importance = TRUE, ntree = 500, mtry = 2)
+IncomeModel
+IncomeModel <- randomForest(TrainSetBeg, y = TrainSetFin$Income, importance = TRUE, ntree = 1000, mtry = 2)
+IncomeModel
+IncomeModel <- randomForest(TrainSetBeg, y = TrainSetFin$Income, importance = TRUE, ntree = 1000, mtry = 4)
+IncomeModel
+IncomeModel <- randomForest(TrainSetBeg, y = TrainSetFin$Income, importance = TRUE, ntree = 5000, mtry = 2)
+IncomeModel
+hist(Pred1DataFin)
+hist(as.numeric(Pred1DataFin))
+ggplot2(Pred1DataBeg, aes(x = Income, y = Pred1DataFin$Income)) + geom_dotplot()
+ggplot(Pred1DataBeg, aes(x = Income, y = Pred1DataFin$Income)) + geom_dotplot()
+ggplot(Pred1DataBeg, aes(x = Income, y = Pred1DataFin$Income)) + geom_scatter()
+ggplot(Pred1DataBeg, aes(x = Income, y = Pred1DataFin$Income)) + geom_point()
+ggplot(Pred1DataBeg, aes(x = Income, y = Pred1DataFin$Income)) + geom_jitter()
+source('~/Documents/Drive Sync/BCA/12th Grade/M3/Part2/RunAnalysis.R', echo=TRUE)
+predValid
+importance(IncomeModle)
+importance(IncomeModel)
+IncomeModel <- randomForest(TrainSetBeg[c(1,10)], y = TrainSetFin$Income, importance = TRUE, ntree = 500, mtry = 2)
+IncomeModel
+IncomeModel <- randomForest(TrainSetBeg[-1], y = TrainSetFin$Income, importance = TRUE, ntree = 500, mtry = 2)
+IncomeModel
+TrainSetBeg[-1]
+predValid <- predict(IncomeModel, ValidSetBeg)
+predValid
+?randomForest
+hist(predValid)
+hist(as.numeric(predValid))
+IncomeModel <- randomForest(TrainSetBeg[-1], y = TrainSetFin$Income, importance = TRUE, ntree = 50, mtry = 2)
+IncomeModel
+IncomeModel <- randomForest(TrainSetBeg[-1], y = TrainSetFin$Income, importance = TRUE, ntree = 20, mtry = 2)
+IncomeModel
+IncomeModel <- randomForest(TrainSetBeg, y = TrainSetFin$Income, importance = TRUE, ntree = 20, mtry = 2)
+IncomeModel
+IncomeModel <- randomForest(TrainSetBeg, y = TrainSetFin$Income, importance = TRUE, ntree = 50, mtry = 2)
+IncomeModel
+lm(TrainSetFin$Income ~ TrainSetBeg)
+ggplot(data = Pred1DataBeg, aes(x = seq(1:nrows), y = Income)) + geom_point()
+ggplot(data = Pred1DataBeg, aes(x = seq(1:nrows(Pred1DataBeg)), y = Income)) + geom_point()
+ggplot(data = Pred1DataBeg, aes(x = seq(1:nrow(Pred1DataBeg)), y = Income)) + geom_point()
+ggplot(data = Pred1DataBeg, aes(x = seq(1:nrow(Pred1DataBeg)), y = as..numeric(Income)) + geom_point()
+ggplot(data = Pred1DataBeg, aes(x = seq(1:nrow(Pred1DataBeg)), y = as..numeric(Income))) + geom_point()
+nrow
+ggplot(data = Pred1DataBeg, aes(x = seq(1:nrow(Pred1DataBeg)), y = as..numeric(Income))) + geom_point()
+ggplot(data = Pred1DataBeg, aes(x = seq(1:nrow(Pred1DataBeg)), y = as.numeric(Income))) + geom_point()
+hist(TrainSetBeg$Income)
+ggplot(data = Pred1DataBeg, aes(Income)) + geom_histogram()
+ggplot(data = Pred1DataBeg, aes(Income)) + geom_histogram(stat = count)
+ggplot(data = Pred1DataBeg, aes(Income)) + geom_histogram(stat = "count")
+ggplot(data = Pred1DataFin, aes(Income)) + geom_histogram(stat = "count")
+ggplot(data = Pred1DataBeg, aes(Income)) + geom_histogram(stat = "count")
+IncomeModel <- randomForest(TrainSetBeg, y = TrainSetFin$Income, importance = TRUE, ntree = 500, mtry = 3)
+summaty(IncomeModel)
+summary(IncomeModel)
+IncomeModle
+IncomeModel
+IncomeModel <- randomForest(TrainSetBeg, y = TrainSetFin$Income, xtest = ValidSetBeg, ytest = ValidSetFin$Income, importance = TRUE, ntree = 500, mtry = 3)
+IncomeModel
+WorkModel <- randomForest(TrainSetBeg, y = TrainSetFin$Work, xtest = ValidSetBeg, ytest = ValidSetFin$Work, importance = TRUE, ntree = 500, mtry = 3)
+WorkModel
+varImpPlot(WorkModel)
+?varImpPlot
+GeographyModel <- randomForest(TrainSetBeg, y = TrainSetFin$Geography, xtest = ValidSetBeg, ytest = ValidSetFin$Geography, importance = TRUE, ntree = 500, mtry = 3)
+GeographyModel
+ggplot(data = GeographyModel, aes(predicted)) + geom_histogram(stat = "count")
+ggplot(data = GeographyModel$predicted, aes()) + geom_histogram(stat = "count")
+ggplot(data = GeographyModel$predicted, aes()) + geom_histogram(stat = "count")
+GeographyModel$
+ggplot(aes(GeographyModel$predicted)) + geom_histogram(stat = "count")
+ggplot(GeographyModel$predicted, aes()) + geom_histogram(stat = "count")
+hist(GeographyModel$predicted)
+hist(as.numeric(GeographyModel$predicted))
+ggplot(Pred1DataBeg, aes(Geography)) + geom_histogram(stat = "count")
+ggplot(Pred1DataFin, aes(Geography)) + geom_histogram(stat = "count")
+GeographyModel <- randomForest(TrainSetBeg, y = TrainSetFin$Geography, xtest = ValidSetBeg, ytest = ValidSetFin$Geography, importance = TRUE, ntree = 500, mtry = 2)
+GeographyModel
+ggplot(data = Pred1DataBeg, aes(x = Geogrpahy, y = Pred1DataFin$Geography)) + geom_histogram(stat = "count")
+ggplot(data = Pred1DataBeg, aes(x = Geography, y = Pred1DataFin$Geography)) + geom_histogram(stat = "count")
+ggplot(data = Pred1DataBeg, aes(x = Geography, y = Pred1DataFin$Geography)) + geom_jitter())
+ggplot(data = Pred1DataBeg, aes(x = Geography, y = Pred1DataFin$Geography)) + geom_jitter()
+importance(GeographyModel)
+ggplot(data = Pred1DataBeg, aes(x = Income, y = Pred1DataFin$Geography)) + geom_scatter()
+ggplot(data = Pred1DataBeg, aes(x = Income, y = Pred1DataFin$Geography)) + geom_jitter()
+View(Pred2Data)
+sum(complete.cases(Pred2Data))
+Pred2Data <- Pred2Data[-6]
+sum(complete.cases(Pred2Data))
+load("/Users/shalinpatel/Documents/Drive\ Sync/BCA/12th\ Grade/M3/Part2/ICPSR_36361/DS0001/36361-0001-Data.rda")
+factorlist <- c("IRFAMIN3", "NEWRACE2", "IRSEX", "AGE2", "WRKBZCA2", "YUTPFMLY", "IMOTHER", "IFATHER", "NRCH17_2", "CIGFNSMK", "COUTYP2", "ALCEVER", "CIGEVER", "MJEVER", "HEREVER", "PERCTYLX", "VICOLOR", "ANLCARD")
+colnames1 <- c("Income", "Race", "Gender", "Age", "Work", "Family Problems", "Mother", "Father", "Num Children", "Friend Not Smoke", "Geography", "Alcohol Ever", "Cigarette Ever", "Marijuana Ever", "Heroin Ever", "Percocet/percodan/tylox", "Vicodin/Lortab/Lorcet", "Pain Reliever")
+Pred2Data <- da36361.0001[factorlist]
+colnames(Pred2Data) <- colnames1
+Pred2Data <- Pred2Data[-6]
+Pred2Data <- Pred2Data[-6]
+w <- is.na(Pred2Data$`Friend Not Smoke`)
+x <- is.na(Pred2Data$`Percocet/percodan/tylox`)
+y <- is.na(Pred2Data$`Vicodin/Lortab/Lorcet`)
+z <- is.na(Pred2Data$`Pain Reliever`)
+w[w] <- x[x] <- y[y] <- z[z] <- 0
+w <- is.na(Pred2Data$`Friend Not Smoke`) | Pred2Data$`Friend Not Smoke` == levels(Pred2Data$`Friend Not Smoke`)[2]
+x <- is.na(Pred2Data$`Percocet/percodan/tylox`) | Pred2Data$`Percocet/percodan/tylox` == levels(Pred2Data$`Friend Not Smoke`)[2]
+y <- is.na(Pred2Data$`Vicodin/Lortab/Lorcet`) | Pred2Data$`Vicodin/Lortab/Lorcet` == levels(Pred2Data$`Friend Not Smoke`)[2]
+z <- is.na(Pred2Data$`Pain Reliever`) | Pred2Data$`Pain Reliever` == levels(Pred2Data$`Friend Not Smoke`)[2]
+w[w] <- x[x] <- y[y] <- z[z] <- 0
+w <- is.na(Pred2Data$`Friend Not Smoke`) | Pred2Data$`Friend Not Smoke` == levels(Pred2Data$`Friend Not Smoke`)[2]
+x <- is.na(Pred2Data$`Percocet/percodan/tylox`) | Pred2Data$`Percocet/percodan/tylox` == levels(Pred2Data$`Friend Not Smoke`)[2]
+y <- is.na(Pred2Data$`Vicodin/Lortab/Lorcet`) | Pred2Data$`Vicodin/Lortab/Lorcet` == levels(Pred2Data$`Friend Not Smoke`)[2]
+z <- is.na(Pred2Data$`Pain Reliever`) | Pred2Data$`Pain Reliever` == levels(Pred2Data$`Friend Not Smoke`)[2]
+w[w] <- x[x] <- y[y] <- z[z] <- 0
+w <- is.na(Pred2Data$`Friend Not Smoke`) | Pred2Data$`Friend Not Smoke` == levels(Pred2Data$`Friend Not Smoke`)[2]
+x <- is.na(Pred2Data$`Percocet/percodan/tylox`) | Pred2Data$`Percocet/percodan/tylox` == levels(Pred2Data$`Friend Not Smoke`)[2]
+y <- is.na(Pred2Data$`Vicodin/Lortab/Lorcet`) | Pred2Data$`Vicodin/Lortab/Lorcet` == levels(Pred2Data$`Friend Not Smoke`)[2]
+z <- is.na(Pred2Data$`Pain Reliever`) | Pred2Data$`Pain Reliever` == levels(Pred2Data$`Friend Not Smoke`)[2]
+x[x] <- 0
+x <- is.na(Pred2Data$`Percocet/percodan/tylox`) | Pred2Data$`Percocet/percodan/tylox` == levels(Pred2Data$`Friend Not Smoke`)[2]
+w[w] <- 0
+w <- is.na(Pred2Data$`Friend Not Smoke`) | Pred2Data$`Friend Not Smoke` == levels(Pred2Data$`Friend Not Smoke`)[2]
+w[w]
+w
+w[w] <- 1
+w <- is.na(Pred2Data$`Friend Not Smoke`) | Pred2Data$`Friend Not Smoke` == levels(Pred2Data$`Friend Not Smoke`)[2]
+for(a in w){
+if(a){
+a = levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+}
+w[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+w <- is.na(Pred2Data$`Friend Not Smoke`) | Pred2Data$`Friend Not Smoke` == levels(Pred2Data$`Friend Not Smoke`)[2]
+for(a in 1:length(w)){
+if(w[a]){
+w[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+}
+for(a in 1:length(w)){
+if(w[a]){
+w[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+else{
+w[a] <- levels(Pred2Data$`Friend Not Smoke`)[0]
+}
+}
+w <- is.na(Pred2Data$`Friend Not Smoke`) | Pred2Data$`Friend Not Smoke` == levels(Pred2Data$`Friend Not Smoke`)[2]
+for(a in 1:length(w)){
+if(w[a]){
+w[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+else{
+w[a] <- levels(Pred2Data$`Friend Not Smoke`)[0]
+}
+}
+w <- is.na(Pred2Data$`Friend Not Smoke`) | Pred2Data$`Friend Not Smoke` == levels(Pred2Data$`Friend Not Smoke`)[2]
+for(a in 1:length(w)){
+if(w[a]){
+w[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+else{
+w[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+}
+for(a in 1:length(x)){
+if(x[a]){
+x[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+else{
+x[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+}
+x <- is.na(Pred2Data$`Percocet/percodan/tylox`) | Pred2Data$`Percocet/percodan/tylox` == levels(Pred2Data$`Friend Not Smoke`)[2]
+for(a in 1:length(x)){
+if(!x[a]){
+x[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+else{
+x[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+}
+x <- is.na(Pred2Data$`Percocet/percodan/tylox`) | Pred2Data$`Percocet/percodan/tylox` == levels(Pred2Data$`Friend Not Smoke`)[2]
+for(a in 1:length(x)){
+if(!x[a]){
+x[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+else{
+x[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+}
+for(a in 1:length(x)){
+if(x[a]){
+x[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+else{
+x[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+}
+x <- is.na(Pred2Data$`Percocet/percodan/tylox`) | Pred2Data$`Percocet/percodan/tylox` == levels(Pred2Data$`Friend Not Smoke`)[2]
+for(a in 1:length(x)){
+if(x[a]){
+x[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+else{
+x[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+}
+for(a in 1:length(y)){
+if(y[a]){
+y[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+else{
+y[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+}
+for(a in 1:length(y)){
+if(z[a]){
+z[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+else{
+z[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+}
+as.factor(w)
+Pred2Data$`Friend Not Smoke` <- as.factor(w)
+Pred2Data$`Percocet/percodan/tylox` <- as.factor(x)
+Pred2Data$`Vicodin/Lortab/Lorcet` <- as.factor(y)
+Pred2Data$`Pain Reliever` <- as.factor(z)
+complete.cases(Pred2Data)
+sum(complete.cases(Pred2Data))
+Pred2Data <- Pred2Data[complete.cases(Pred2Data), ]
+train <- sample(nrow(Pred2Data), 0.7*nrow(Pred2Data), replace = FALSE)
+TrainSet2 <- Pred2Data[train,]
+ValidSet2 <- Pred2Data[-train,]
+FinalModelAlc <- randomForest(TrainSet2[1:9], y = TrainSet2$`Alcohol Ever`, xtest = ValidSet2[1:9], ytest = ValidSet2$`Alcohol Ever`, importance = TRUE, ntree = 500, mtry = 3)
+FinalModelAlc
+2
+FinalModelAlc <- randomForest(TrainSet2[1:9], y = TrainSet2$`Alcohol Ever`, xtest = ValidSet2[1:9], ytest = ValidSet2$`Alcohol Ever`, importance = TRUE, ntree = 500, mtry = 2)
+FinalModelAlc
+FinalModelAlc <- randomForest(TrainSet2[1:9], y = TrainSet2$`Alcohol Ever`, xtest = ValidSet2[1:9], ytest = ValidSet2$`Alcohol Ever`, importance = TRUE, ntree = 100, mtry = 2)
+FinalModelAlc
+FinalModelAlc <- randomForest(TrainSet2[1:9], y = TrainSet2$`Alcohol Ever`, xtest = ValidSet2[1:9], ytest = ValidSet2$`Alcohol Ever`, importance = TRUE, ntree = 1000, mtry = 4)
+FinalModelAlc
+FinalModelAlc <- randomForest(TrainSet2[1:9], y = TrainSet2$`Alcohol Ever`, xtest = ValidSet2[1:9], ytest = ValidSet2$`Alcohol Ever`, importance = TRUE, ntree = 250, mtry = 3)
+FinalModelAlc
+FinalModelCig <- randomForest(TrainSet2[1:9], y = TrainSet2$`Cigarette Ever`, xtest = ValidSet2[1:9], ytest = ValidSet2$`Cigarette Ever`, importance = TRUE, ntree = 250, mtry = 3)
+FinalModelCig
+w <- is.na(Pred2Data$`Friend Not Smoke`) | Pred2Data$`Friend Not Smoke` == levels(Pred2Data$`Friend Not Smoke`)[2]
+x <- is.na(Pred2Data$`Percocet/percodan/tylox`) | Pred2Data$`Percocet/percodan/tylox` == levels(Pred2Data$`Friend Not Smoke`)[2]
+y <- is.na(Pred2Data$`Vicodin/Lortab/Lorcet`) | Pred2Data$`Vicodin/Lortab/Lorcet` == levels(Pred2Data$`Friend Not Smoke`)[2]
+z <- is.na(Pred2Data$`Pain Reliever`) | Pred2Data$`Pain Reliever` == levels(Pred2Data$`Friend Not Smoke`)[2]
+opiod <- !x | !y | !z
+opiod <- !x | !y | !z | Pred2Data$`Heroin Ever` == levels(Pred2Data$`Heroin Ever`)[1]
+opiod
+cbind(Pred2Data, opiod)
+Pred2Data <- cbind(Pred2Data, opiod)
+opiod <- !x | !y | !z | Pred2Data$`Heroin Ever` == levels(Pred2Data$`Heroin Ever`)[1]
+for(a in 1:length(opiod)){
+if(opiod[a]){
+opiod[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+else{
+opiod[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+}
+opiod <- !x | !y | !z | Pred2Data$`Heroin Ever` == levels(Pred2Data$`Heroin Ever`)[1]
+for(a in 1:length(opiod)){
+if(!opiod[a]){
+opiod[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+else{
+opiod[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+}
+opiod <- !x | !y | !z | Pred2Data$`Heroin Ever` == levels(Pred2Data$`Heroin Ever`)[1]
+for(a in 1:length(opiod)){
+if(opiod[a]){
+opiod[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+else{
+opiod[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+}
+Pred2Data$opiod <- opiod
+FinalModelMar <- randomForest(TrainSet2[1:9], y = TrainSet2$`Marijuana Ever`, xtest = ValidSet2[1:9], ytest = ValidSet2$`Marijuana Ever`, importance = TRUE, ntree = 250, mtry = 3)
+FinalModelMar
+FinalModelOpi <- randomForest(TrainSet2[1:9], y = TrainSet2$opiod, xtest = ValidSet2[1:9], ytest = ValidSet2$opiod, importance = TRUE, ntree = 250, mtry = 3)
+sum(is.na(da36361.0001$SNRLGSVC))
+sum(is.na(da36361.0001$SNRLGIMP))
+sum(is.na(da36361.0001$SNRLDCSN))
+factorlist <- c("IRFAMIN3", "NEWRACE2", "IRSEX", "SNRLGIMP", "AGE2", "WRKBZCA2", "YUTPFMLY", "IMOTHER", "IFATHER", "NRCH17_2", "CIGFNSMK", "COUTYP2", "ALCEVER", "CIGEVER", "MJEVER", "HEREVER", "PERCTYLX", "VICOLOR", "ANLCARD")
+colnames1 <- c("Income", "Race", "Gender", "Religious Beliefs", "Age", "Work", "Family Problems", "Mother", "Father", "Num Children", "Friend Not Smoke", "Geography", "Alcohol Ever", "Cigarette Ever", "Marijuana Ever", "Heroin Ever", "Percocet/percodan/tylox", "Vicodin/Lortab/Lorcet", "Pain Reliever")
+Pred2Data <- da36361.0001[factorlist]
+colnames(Pred2Data) <- colnames1
+Pred2Data <- Pred2Data[-6]
+w <- is.na(Pred2Data$`Friend Not Smoke`) | Pred2Data$`Friend Not Smoke` == levels(Pred2Data$`Friend Not Smoke`)[2]
+x <- is.na(Pred2Data$`Percocet/percodan/tylox`) | Pred2Data$`Percocet/percodan/tylox` == levels(Pred2Data$`Friend Not Smoke`)[2]
+y <- is.na(Pred2Data$`Vicodin/Lortab/Lorcet`) | Pred2Data$`Vicodin/Lortab/Lorcet` == levels(Pred2Data$`Friend Not Smoke`)[2]
+z <- is.na(Pred2Data$`Pain Reliever`) | Pred2Data$`Pain Reliever` == levels(Pred2Data$`Friend Not Smoke`)[2]
+opiod <- !x | !y | !z | Pred2Data$`Heroin Ever` == levels(Pred2Data$`Heroin Ever`)[1]
+factorlist <- c("IRFAMIN3", "NEWRACE2", "IRSEX", "SNRLGIMP", "AGE2", "WRKBZCA2", "YUTPFMLY", "IMOTHER", "IFATHER", "NRCH17_2", "CIGFNSMK", "COUTYP2", "ALCEVER", "CIGEVER", "MJEVER", "HEREVER", "PERCTYLX", "VICOLOR", "ANLCARD")
+colnames1 <- c("Income", "Race", "Gender", "Religious Beliefs", "Age", "Work", "Family Problems", "Mother", "Father", "Num Children", "Friend Not Smoke", "Geography", "Alcohol Ever", "Cigarette Ever", "Marijuana Ever", "Heroin Ever", "Percocet/percodan/tylox", "Vicodin/Lortab/Lorcet", "Pain Reliever")
+Pred2Data <- da36361.0001[factorlist]
+colnames(Pred2Data) <- colnames1
+Pred2Data <- Pred2Data[-7]
+w <- is.na(Pred2Data$`Friend Not Smoke`) | Pred2Data$`Friend Not Smoke` == levels(Pred2Data$`Friend Not Smoke`)[2]
+x <- is.na(Pred2Data$`Percocet/percodan/tylox`) | Pred2Data$`Percocet/percodan/tylox` == levels(Pred2Data$`Friend Not Smoke`)[2]
+y <- is.na(Pred2Data$`Vicodin/Lortab/Lorcet`) | Pred2Data$`Vicodin/Lortab/Lorcet` == levels(Pred2Data$`Friend Not Smoke`)[2]
+z <- is.na(Pred2Data$`Pain Reliever`) | Pred2Data$`Pain Reliever` == levels(Pred2Data$`Friend Not Smoke`)[2]
+opiod <- !x | !y | !z | Pred2Data$`Heroin Ever` == levels(Pred2Data$`Heroin Ever`)[1]
+for(a in 1:length(w)){
+if(w[a]){
+w[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+else{
+w[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+}
+w <- is.na(Pred2Data$`Friend Not Smoke`) | Pred2Data$`Friend Not Smoke` == levels(Pred2Data$`Friend Not Smoke`)[2]
+for(a in 1:length(w)){
+if(w[a]){
+w[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+else{
+w[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+}
+for(a in 1:length(x)){
+if(x[a]){
+x[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+else{
+x[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+}
+for(a in 1:length(x)){
+if(y[a]){
+y[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+else{
+y[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+}
+for(a in 1:length(z)){
+if(z[a]){
+z[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+else{
+z[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+}
+for(a in 1:length(z)){
+if(z[a]){
+z[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+else{
+z[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+}
+Pred2Data$`Friend Not Smoke` <- as.factor(w)
+Pred2Data$`Percocet/percodan/tylox` <- as.factor(x)
+Pred2Data$`Vicodin/Lortab/Lorcet` <- as.factor(y)
+Pred2Data$`Pain Reliever` <- as.factor(z)
+Pred2Data <- cbind(Pred2Data, opiod)
+Pred2Data$opiod <- opiod
+Pred2Data <- Pred2Data[complete.cases(Pred2Data), ]
+for(a in 1:length(opiod)){
+if(opiod[a]){
+opiod[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+else{
+opiod[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+}
+opiod <- as.factor(opiod)
+w <- is.na(Pred2Data$`Friend Not Smoke`) | Pred2Data$`Friend Not Smoke` == levels(Pred2Data$`Friend Not Smoke`)[2]
+x <- is.na(Pred2Data$`Percocet/percodan/tylox`) | Pred2Data$`Percocet/percodan/tylox` == levels(Pred2Data$`Friend Not Smoke`)[2]
+y <- is.na(Pred2Data$`Vicodin/Lortab/Lorcet`) | Pred2Data$`Vicodin/Lortab/Lorcet` == levels(Pred2Data$`Friend Not Smoke`)[2]
+z <- is.na(Pred2Data$`Pain Reliever`) | Pred2Data$`Pain Reliever` == levels(Pred2Data$`Friend Not Smoke`)[2]
+opiod <- !x | !y | !z | Pred2Data$`Heroin Ever` == levels(Pred2Data$`Heroin Ever`)[1]
+for(a in 1:length(opiod)){
+if(opiod[a]){
+opiod[a] <- levels(Pred2Data$`Friend Not Smoke`)[1]
+}
+else{
+opiod[a] <- levels(Pred2Data$`Friend Not Smoke`)[2]
+}
+}
+opiod <- as.factor(opiod)
+Pred2Data <- cbind(Pred2Data, opiod)
+Pred2Data$opiod <- opiod
+Pred2Data <- Pred2Data[complete.cases(Pred2Data), ]
+train <- sample(nrow(Pred2Data), 0.7*nrow(Pred2Data), replace = FALSE)
+TrainSet2 <- Pred2Data[train,]
+ValidSet2 <- Pred2Data[-train,]
+FinalModelAlc <- randomForest(TrainSet2[1:11], y = TrainSet2$`Alcohol Ever`, xtest = ValidSet2[1:11], ytest = ValidSet2$`Alcohol Ever`, importance = TRUE, ntree = 250, mtry = 3)
+FinalModelAlc
+FinalModelCig <- randomForest(TrainSet2[1:11], y = TrainSet2$`Cigarette Ever`, xtest = ValidSet2[1:11], ytest = ValidSet2$`Cigarette Ever`, importance = TRUE, ntree = 250, mtry = 3)
+FinalModelCig
+FinalModelMar <- randomForest(TrainSet2[1:11], y = TrainSet2$`Marijuana Ever`, xtest = ValidSet2[1:11], ytest = ValidSet2$`Marijuana Ever`, importance = TRUE, ntree = 250, mtry = 3)
+FinalModelMar
+FinalModelOpi <- randomForest(TrainSet2[1:11], y = TrainSet2$opiod, xtest = ValidSet2[1:11], ytest = ValidSet2$opiod, importance = TRUE, ntree = 250, mtry = 3)
+FinalModelOpi
+View(FinalModelAlc)
+View(Pred1DataBeg)
+IncomeModel
+ggplot(mapping = aes(IncomeModel$predicted)) + geom_histogram()
+ggplot(mapping = aes(IncomeModel$predicted)) + geom_histogram(stat = "count")
+ggplot(mapping = aes(IncomeModel$predicted)) + geom_histogram(stat = "count", col = "dark green", alpha = 0.7) + labs()
+ggplot(mapping = aes(IncomeModel$predicted)) + geom_histogram(stat = "count", fill = "dark green", alpha = 0.7) + labs()
+ggplot(mapping = aes(IncomeModel$predicted)) + geom_histogram(stat = "count", fill = "dark green", alpha = 0.7) + labs(title = "Frequency of Predicted Value in Income Model")
+ggplot(mapping = aes(IncomeModel$predicted)) + geom_histogram(stat = "count", fill = "dark green", alpha = 0.7) + labs(title = "Frequency of Predicted Value in Income Model", xlab = "Predictions")
+ggplot(mapping = aes(IncomeModel$predicted)) + geom_histogram(stat = "count", fill = "dark green", alpha = 0.7) + labs(title = "Frequency of Predicted Value in Income Model", x = "Predictions")
+View(Pred1DataBeg)
+ggplot(mapping = aes(IncomeModel$predicted)) + geom_histogram(stat = "count", fill = "dark green", alpha = 0.7) + labs(title = "Frequency of Predicted Value in Income Model", x = "Predictions", caption = "The largest bar is incomes from $50,000 to $74,999 ")
+ggplot(mapping = aes(IncomeModel$predicted)) + geom_histogram(stat = "count", fill = "dark green", alpha = 0.7) + labs(title = "Frequency of Predicted Value in Income Model", x = "Predictions", caption = "The largest bar is incomes from $50,000 to $74,999 ") + theme(title.axis.x = "")
+ggplot(mapping = aes(IncomeModel$predicted)) + geom_histogram(stat = "count", fill = "dark green", alpha = 0.7) + labs(title = "Frequency of Predicted Value in Income Model", x = "Predictions", caption = "The largest bar is incomes from $50,000 to $74,999 ") + theme(axis.text.x = "")
+ggplot(mapping = aes(IncomeModel$predicted)) + geom_histogram(stat = "count", fill = "dark green", alpha = 0.7) + labs(title = "Frequency of Predicted Value in Income Model", x = "Predictions", caption = "The largest bar is incomes from $50,000 to $74,999 ") + theme(axis.text.x = element_blank())
+View(IncomeModel)
+WorkModel
+WorkModel$importance
+ggplot(aes(WorkModel$importance$MeanDecreaseAccuracy)) + geom_dotplot()
+type(WorkModel$importance)
+typeof(WorkModel$importance)
+WorkModel$importance[,3]
+WorkModel$importance[,3:4]
+as.data.frame(WorkModel$importance[,3:4])
+varImpPlot(WorkModel)
+GeographyModel
+ggplot(data = Pred1DataBeg, aes(x = Geography, y = Pred1DataFin$Geography)) + geom_jitter()
+ggplot(data = Pred1DataBeg, aes(x = Geography, y = Pred1DataFin$Geography)) + geom_jitter(col = "dark green") + labs(title = "Future Location vs. Present Location", x = "Previous", y = "Future") + theme(x.axis.label = element_blank(), y.axis.label = element_blank())
+ggplot(data = Pred1DataBeg, aes(x = Geography, y = Pred1DataFin$Geography)) + geom_jitter(col = "dark green") + labs(title = "Future Location vs. Present Location", x = "Previous", y = "Future") + theme(axis.title.y = element_blank(), axis.title.x = element_blank())
+ggplot(data = Pred1DataBeg, aes(x = Geography, y = Pred1DataFin$Geography)) + geom_jitter(col = "dark green") + labs(title = "Future Location vs. Present Location", x = "Previous", y = "Future") + theme(axis.title.y = element_blank(), axis.label.x = element_blank())
+ggplot(data = Pred1DataBeg, aes(x = Geography, y = Pred1DataFin$Geography)) + geom_jitter(col = "dark green") + labs(title = "Future Location vs. Present Location", x = "Previous", y = "Future") + theme(axis.ticks.y = element_blank(), axis.ticks.x = element_blank())
+ggplot(data = Pred1DataBeg, aes(x = Geography, y = Pred1DataFin$Geography)) + geom_jitter(col = "dark green") + labs(title = "Future Location vs. Present Location", x = "Previous", y = "Future") + theme(axis.ticks.y = element_blank(), axis.text.x = element_blank())
+ggplot(data = Pred1DataBeg, aes(x = Geography, y = Pred1DataFin$Geography)) + geom_jitter(col = "dark green") + labs(title = "Future Location vs. Present Location", x = "Previous", y = "Future") + theme(axis.text.y = element_blank(), axis.text.x = element_blank())
+ggplot(data = Pred1DataBeg, aes(x = Geography, y = Pred1DataFin$Geography)) + geom_jitter(col = "dark green") + labs(title = "Future Location vs. Present Location", x = "Previous", y = "Future", caption = "The three most popular locations to live are rural, suburban, and urban areas.") + theme(axis.text.y = element_blank(), axis.text.x = element_blank())
+FinalModelAlc
+varImpPlot(FinalModelAlc)
+FinalModelAlc$predicted
+summary(FinalModelAlc$predicted)
+19486/length(FinalModelAlc$predicted)
+FinalModelCig
+varImpPlot(FinalModelCig)
+summary(FinalModelCig$predicted)
+14720/length(FinalModeLCig$predicted)
+14720/length(FinalModelCig$predicted)
+FinalModelMar
+varImpPlot(FinalModelMar)
+summary(FinalModelMar)
+summary(FinalModelMar$predicted)
+11067(11067+8485)
+11067/(11067+8485)
+FinalModelOpi
+varImpPlot(FinalModelOpi)
+summary(FinalModelOpi$predicted)
+221/(221+19331)
